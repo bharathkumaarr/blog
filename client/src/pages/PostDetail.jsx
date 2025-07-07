@@ -33,9 +33,7 @@ function PostDetail() {
   useEffect(() => {
   fetch(`http://localhost:3000/api/posts/${id}`)
     .then(res => res.json())
-    .then(data => {
-      console.log(data)
-      setPost(data)});
+    .then(data => setPost(data));
   fetch(`http://localhost:3000/api/comments/${id}`)
     .then(res => res.json())
     .then(data => setComments(data));
@@ -96,12 +94,7 @@ const handleDeleteComment = async (commentId) => {
         <p className="text-base mb-4">{post.content}</p>
         <p className="text-sm text-gray-600">{post.likes?.length || 0} likes</p>
         
-        <p className="text-sm text-blue-500">
-  Logged-in User ID: {user?.id}
-</p>
-<p className="text-sm text-blue-500">
-  Post Author ID: {post.author?._id}
-</p>
+        
 
 
         {user && (
