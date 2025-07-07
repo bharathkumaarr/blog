@@ -70,18 +70,18 @@ const handleCommentSubmit = async () => {
   }
 };
 
-const handleDeleteComment = async (commentId) => {
-  const res = await fetch(`http://localhost:3000/api/comments/${commentId}`, {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+// const handleDeleteComment = async (commentId) => {
+//   const res = await fetch(`http://localhost:3000/api/comments/${commentId}`, {
+//     method: "DELETE",
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   });
 
-  if (res.ok) {
-    setComments(prev => prev.filter(c => c._id !== commentId));
-  }
-};
+//   if (res.ok) {
+//     setComments(prev => prev.filter(c => c._id !== commentId));
+//   }
+// };
 
 
   if (!post) return <p className="text-center mt-20">Loading...</p>;
