@@ -10,8 +10,14 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-  const post = await Post.findById(req.params.id).populate('author', 'username');
-  res.json(post);
+  try {
+    const post = await Post.findById(req.params.id)
+      .populate("author", "_id username");
+    if (!post) return res.status(404).json({ error: "Post not found" });
+    res.json(post);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 router.post('/', auth, async (req, res) => {
@@ -44,7 +50,9 @@ router.post('/:id/like', auth, async (req, res) => {
     post.likes.push(req.user.id);
   }
   await post.save();
-  res.json({ likes: post.likes.length });
+  const updatedPost = await Post.findById(req.params.id).populate('author', '_id username');
+  res.json(updatedPost);
+
 });
 
 
