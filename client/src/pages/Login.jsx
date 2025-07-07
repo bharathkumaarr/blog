@@ -2,12 +2,21 @@ import { useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button";
 
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../redux/authSlice';
+import { useNavigate } from 'react-router-dom';
+
+
 
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [msg, setMsg] = useState('');
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
 
     const handleLogin = async() =>  {
         try {
@@ -18,8 +27,9 @@ function Login() {
             })
             const data = await res.json();
             if (res.ok) {
-                localStorage.setItem("token", data.token);
-                setMsg("Login successfull!")
+                dispatch(loginSuccess({ token: data.token, user: data.user }));
+                navigate("/posts");
+
             } else {
                 setMsg(data.error || "Login failed")
             }
