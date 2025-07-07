@@ -19,7 +19,7 @@ function App() {
 
   return (
     <div className="p-4">
-      <nav className="mb-4 space-x-4">
+      <nav className="mb-4 space-x-4 flex items-center justify-center">
         <Link to='/login' className="text-blue-600 underline">Login</Link>
         <Link to='/register' className="text-blue-600 underline">Register</Link>
         <Link to="/posts" className="text-blue-600 underline">Posts</Link>
