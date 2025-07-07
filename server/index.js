@@ -6,7 +6,7 @@ const dotenv = require('dotenv')
 dotenv.config()
 
 
-const connectDB = require('./config/configDb')
+
 const authRoutes = require('./routes/auth')
 const postRoutes = require('./routes/posts')
 const commentRoutes = require('./routes/comments')
@@ -17,7 +17,10 @@ app.use(cors())
 app.use(express.json())
 
 
-connectDB()
+const connectDB = mongoose.connect(process.env.MONGO_URI)
+.then(()=>console.log('db connected'))
+.catch(err=>console.error(err))
+
 
 
 app.use('./api/auth', authRoutes)
