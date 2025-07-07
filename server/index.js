@@ -23,9 +23,9 @@ const connectDB = mongoose.connect(process.env.MONGO_URI)
 
 
 
-app.use('./api/auth', authRoutes)
-app.use('./api/posts', postRoutes)
-app.use('./api/comments', commentRoutes)
+app.use('/api/auth', authRoutes)
+app.use('/api/posts', postRoutes)
+app.use('/api/comments', commentRoutes)
 
 app.listen(3000, ()=>{
     console.log('server running at port 3000')
