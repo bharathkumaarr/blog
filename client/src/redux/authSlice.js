@@ -5,7 +5,7 @@ const user = localStorage.getItem('user')
 
 const initialState = {
     token: token || null,
-    user: user ? JSON.parse(null) : null 
+    user: user ? JSON.parse(user) : null 
 }
 
 const authSlice = createSlice({
