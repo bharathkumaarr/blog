@@ -15,7 +15,7 @@ function EditPost() {
   const [image, setImage] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/posts/${id}`)
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/posts/${id}`)
       .then(res => res.json())
       .then(data => {
         setTitle(data.title);
@@ -25,7 +25,7 @@ function EditPost() {
   }, [id]);
 
   const handleUpdate = async () => {
-    const res = await fetch(`http://localhost:3000/api/posts/${id}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/posts/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

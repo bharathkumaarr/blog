@@ -31,10 +31,10 @@ function PostDetail() {
 
 
   useEffect(() => {
-  fetch(`http://localhost:3000/api/posts/${id}`)
+  fetch(`${import.meta.env.VITE_API_BASE_URL}/api/posts/${id}`)
     .then(res => res.json())
     .then(data => setPost(data));
-  fetch(`http://localhost:3000/api/comments/${id}`)
+  fetch(`${import.meta.env.VITE_API_BASE_URL}/api/comments/${id}`)
     .then(res => res.json())
     .then(data => setComments(data));
 
@@ -43,7 +43,7 @@ function PostDetail() {
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this post?")) return;
 
-    const res = await fetch(`http://localhost:3000/api/posts/${id}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/posts/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -54,7 +54,7 @@ function PostDetail() {
 const handleCommentSubmit = async () => {
   if (!newComment.trim()) return;
 
-  const res = await fetch(`http://localhost:3000/api/comments/${id}`, {
+  const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/comments/${id}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -71,7 +71,7 @@ const handleCommentSubmit = async () => {
 };
 
 // const handleDeleteComment = async (commentId) => {
-//   const res = await fetch(`http://localhost:3000/api/comments/${commentId}`, {
+//   const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/comments/${commentId}`, {
 //     method: "DELETE",
 //     headers: {
 //       Authorization: `Bearer ${token}`,
@@ -100,7 +100,7 @@ const handleCommentSubmit = async () => {
         {user && (
   <Button
     onClick={async () => {
-      const res = await fetch(`http://localhost:3000/api/posts/${id}/like`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/posts/${id}/like`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

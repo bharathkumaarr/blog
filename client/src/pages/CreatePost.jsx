@@ -18,7 +18,7 @@ function CreatePost() {
     const handleSubmit = async () => {
 
         try {
-        const res = await fetch("http://localhost:3000/api/posts", {
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/posts`, {
             method: "POST",
             headers: {
             "Content-Type": "application/json",
