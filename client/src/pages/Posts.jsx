@@ -2,14 +2,17 @@ import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 
+
 function Posts() {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
     fetch("http://localhost:3000/api/posts")
       .then(res => res.json())
-      .then(data => setPosts(data.posts || []));
+      .then(data => setPosts(data));
   }, []);
+
+   if (!posts.length) return <p className="text-center mt-10">No posts yet.</p>;
 
 
   return (

@@ -1,21 +1,52 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+
+
+
+
+import { useSelector } from "react-redux";
+
+import { useNavigate, Link } from "react-router-dom";
+
+
+
 
 
 
 function PostDetail() {
-    const { id } = useParams();
-    const [post, setPost] = useState(null);
+  const { id } = useParams();
+  const [post, setPost] = useState(null);
 
-    useEffect(() => {
-    fetch(`http://localhost:3000/api/posts/${id}`)
-      .then(res => res.json())
-      .then(data => setPost(data));
-    }, [id]);
+  const user = useSelector(state => state.auth.user);
+  const navigate = useNavigate();
+  const token = useSelector(state => state.auth.token);
 
 
-    if (!post) return <p className="text-center mt-20">Loading...</p>;
+
+  useEffect(() => {
+  fetch(`http://localhost:3000/api/posts/${id}`)
+    .then(res => res.json())
+    .then(data => setPost(data));
+  }, [id]);
+
+  const handleDelete = async () => {
+  if (!window.confirm("Are you sure you want to delete this post?")) return;
+
+  const res = await fetch(`http://localhost:3000/api/posts/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (res.ok) navigate("/posts");
+};
+
+
+
+  if (!post) return <p className="text-center mt-20">Loading...</p>;
 
   return (
     <div className="max-w-2xl mx-auto mt-10">
@@ -24,7 +55,36 @@ function PostDetail() {
         <p className="text-sm text-gray-500 mb-4">by {post.author?.username || "Unknown"}</p>
         <p className="text-base mb-4">{post.content}</p>
         <p className="text-sm text-gray-600">{post.likes?.length || 0} likes</p>
+        {user && (
+  <Button
+    onClick={async () => {
+      const res = await fetch(`http://localhost:3000/api/posts/${id}/like`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (res.ok) {
+        // Re-fetch updated post with new like count
+        const updated = await res.json();
+        setPost(updated);
+      }
+    }}
+    className="mt-2"
+  >
+    {post.likes?.includes(user.id) ? "Unlike" : "Like"}
+  </Button>
+)}
+
       </Card>
+      {user?.id === post.author?._id && (
+      <div className="flex gap-2 mt-4">
+        <Link to={`/edit/${post._id}`}>
+          <Button>Edit</Button>
+        </Link>
+        <Button variant="destructive" onClick={handleDelete}>Delete</Button>
+      </div>
+)}
     </div>
   )
 }

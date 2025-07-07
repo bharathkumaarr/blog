@@ -6,6 +6,8 @@ import PostDetail from "./pages/PostDetail";
 import CreatePost from "./pages/CreatePost";
 
 import { Button } from "@/components/ui/button";
+import EditPost from "./pages/EditPost";
+
 
 
 
@@ -31,6 +33,7 @@ function App() {
         <Route path="/posts" element={<Posts />} />
         <Route path="/post/:id" element={<PostDetail />} />
         <Route path="/create" element={<CreatePost />} />
+        <Route path="/edit/:id" element={<EditPost />} />
       </Routes>
     </div>
 
