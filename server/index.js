@@ -22,7 +22,9 @@ const connectDB = mongoose.connect(process.env.MONGO_URI)
 .catch(err=>console.error(err))
 
 
-
+app.get('/',(req,res)=>{
+    res.send("Backend activated on render, head back to https://usemyblog.vercel.app to start using the application.")
+})
 app.use('/api/auth', authRoutes)
 app.use('/api/posts', postRoutes)
 app.use('/api/comments', commentRoutes)

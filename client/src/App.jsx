@@ -18,7 +18,7 @@ function App() {
 
 
   return (
-    <div className="p-4">
+    <div className="p-4 flex flex-col justify-center">
       <nav className="mb-4 space-x-4 flex items-center justify-center">
         <Link to='/login' className="text-blue-600 underline">Login</Link>
         <Link to='/register' className="text-blue-600 underline">Register</Link>
@@ -26,8 +26,9 @@ function App() {
         <Link to="/create">
           <Button>Create New Post</Button>
         </Link>
-        <p className="text-sm text-red-500"><a href="https://blog-dk7n.onrender.com"><span className="underline">click here</span> to activate the render server</a></p>
+        
       </nav>
+      <p className="text-sm text-red-500 m-3"><a href="https://blog-dk7n.onrender.com" target="_blank"><span className="underline">click here</span> to activate the render server</a></p>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
