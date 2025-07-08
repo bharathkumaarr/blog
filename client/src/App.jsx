@@ -26,6 +26,7 @@ function App() {
         <Link to="/create">
           <Button>Create New Post</Button>
         </Link>
+        <p className="text-sm text-red-500"><a href="https://blog-dk7n.onrender.com"><span className="underline">click here</span> to activate the render server</a></p>
       </nav>
       <Routes>
         <Route path="/login" element={<Login />} />
